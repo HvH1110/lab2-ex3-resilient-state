@@ -12,6 +12,8 @@ interface StateStore {
   /** Hooks used by the last committed render (null before the first commit). */
   committedHookCount: number | null;
   renderer: Renderer;
+  /** Incremented on every reset; setters from an older generation are stale. */
+  generation: number;
 }
 
 const noopRenderer: Renderer = () => {};
@@ -22,6 +24,7 @@ const store: StateStore = {
   rendering: false,
   committedHookCount: null,
   renderer: noopRenderer,
+  generation: 0,
 };
 
 /** Installs the function that re-renders the app when state changes. */
@@ -58,6 +61,10 @@ export function commitRender(): void {
 /** Ends a render pass that threw, without recording its (partial) hook count. */
 export function abortRender(): void {
   store.rendering = false;
+}
+
+export function currentGeneration(): number {
+  return store.generation;
 }
 
 export function isRendering(): boolean {
@@ -98,4 +105,5 @@ export function resetStateStore(): void {
   store.rendering = false;
   store.committedHookCount = null;
   store.renderer = noopRenderer;
+  store.generation++;
 }

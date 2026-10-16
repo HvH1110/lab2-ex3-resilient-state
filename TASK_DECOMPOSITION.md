@@ -24,7 +24,7 @@ human-readable error with a **Retry Connection** button.
 
 - [x] Task 3.0: Write `project-rules.md` and `TASK_DECOMPOSITION.md`
 - [x] Task 3.1: Import reactive engine (VNode, useState, delegation, renderApp) from Exercise 2
-- [ ] Task 3.2: Guard setters against a reset store
+- [x] Task 3.2: Guard setters against a reset store
 - [ ] Task 3.3: Implement `useRef`
 - [ ] Task 3.4: Define `ViewState` / `ViewEvent` contracts
 - [ ] Task 3.5: Implement `transition` reducer (stale responses dropped)

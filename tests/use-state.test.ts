@@ -119,6 +119,22 @@ describe('useState', () => {
     ).toThrow(/Cannot update state while rendering/);
   });
 
+  it('ignores a setter called after the store was reset (late async response after unmount)', () => {
+    let setCount!: StateSetter<number>;
+    const renderer = vi.fn();
+    harness(() => {
+      const [count, set] = useState(0);
+      setCount = set;
+      return count;
+    });
+    resetStateStore();
+    setRenderer(renderer);
+
+    setCount(42);
+    expect(inspectStateStore().states).toEqual([]);
+    expect(renderer).not.toHaveBeenCalled();
+  });
+
   it('throws when called outside a render pass', () => {
     expect(() => useState(0)).toThrow(/Invalid hook call/);
   });

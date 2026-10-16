@@ -1,4 +1,12 @@
-import { claimHookSlot, hasSlot, isRendering, readSlot, triggerRender, writeSlot } from './state-store';
+import {
+  claimHookSlot,
+  currentGeneration,
+  hasSlot,
+  isRendering,
+  readSlot,
+  triggerRender,
+  writeSlot,
+} from './state-store';
 import type { SetStateAction, StateHook, StateSetter } from './types';
 
 const isUpdater = <T>(action: SetStateAction<T>): action is (previous: T) => T => typeof action === 'function';
@@ -10,7 +18,10 @@ export function useState<T>(initialValue: T): StateHook<T> {
   // Only initialise an empty slot: `states[slot] ?? initialValue` would wrongly reset a stored null/undefined.
   if (!hasSlot(slot)) writeSlot(slot, initialValue);
 
+  const generation = currentGeneration();
   const setState: StateSetter<T> = (action) => {
+    // The store was reset (app unmounted) since this setter was created, e.g. a late network response.
+    if (generation !== currentGeneration()) return;
     if (isRendering()) {
       throw new Error('Cannot update state while rendering; move the update into an event handler.');
     }
