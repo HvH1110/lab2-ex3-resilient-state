@@ -6,5 +6,6 @@ export { setupEventDelegation } from './events';
 export { inspectStateStore } from './state-store';
 export { useState } from './use-state';
 export { useRef, type Ref } from './use-ref';
+export { useAsyncResource, type AsyncResource } from './use-async-resource';
 export { renderApp, type AppHandle, type RenderAppOptions } from './reactive-engine';
 export * from './types';

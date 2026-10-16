@@ -29,7 +29,7 @@ human-readable error with a **Retry Connection** button.
 - [x] Task 3.4: Define `ViewState` / `ViewEvent` contracts
 - [x] Task 3.5: Implement `transition` reducer (stale responses dropped)
 - [x] Task 3.6: Implement abortable feed service with failure scenarios
-- [ ] Task 3.7: Implement `useAsyncResource` (abort + request ids)
+- [x] Task 3.7: Implement `useAsyncResource` (abort + request ids)
 - [ ] Task 3.8: Implement `ErrorBoundary`
 - [ ] Task 3.9: Assemble multi-state DataFeed with skeleton feedback and Retry Connection
 - [ ] Task 3.10: Document state machine and DevTools audit in README
