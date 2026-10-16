@@ -5,5 +5,6 @@ export { auditMount, auditTree, type AuditReport } from './audit';
 export { setupEventDelegation } from './events';
 export { inspectStateStore } from './state-store';
 export { useState } from './use-state';
+export { useRef, type Ref } from './use-ref';
 export { renderApp, type AppHandle, type RenderAppOptions } from './reactive-engine';
 export * from './types';
