@@ -31,5 +31,5 @@ human-readable error with a **Retry Connection** button.
 - [x] Task 3.6: Implement abortable feed service with failure scenarios
 - [x] Task 3.7: Implement `useAsyncResource` (abort + request ids)
 - [x] Task 3.8: Implement `ErrorBoundary`
-- [ ] Task 3.9: Assemble multi-state DataFeed with skeleton feedback and Retry Connection
+- [x] Task 3.9: Assemble multi-state DataFeed with skeleton feedback and Retry Connection
 - [ ] Task 3.10: Document state machine and DevTools audit in README

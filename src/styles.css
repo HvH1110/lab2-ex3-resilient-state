@@ -1,0 +1,243 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1b1f24;
+  --muted: #57606a;
+  --border: #d0d7de;
+  --accent: #0b5cad;
+  --accent-text: #ffffff;
+  --skeleton: #dfe3e8;
+  --danger: #b42318;
+  --danger-bg: #fef3f2;
+  --ok: #1a7f37;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1215;
+    --surface: #171b20;
+    --text: #e6edf3;
+    --muted: #9ba6b2;
+    --border: #2d333b;
+    --accent: #4c9aff;
+    --accent-text: #0f1215;
+    --skeleton: #2a3038;
+    --danger: #ff8a80;
+    --danger-bg: #2a1614;
+    --ok: #56d364;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.feed-app {
+  display: grid;
+  gap: 1rem;
+  max-width: 44rem;
+  margin-inline: auto;
+  padding: 2rem 1rem;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.hero__lead,
+.empty,
+.footer {
+  color: var(--muted);
+}
+
+/* Scenario picker */
+.scenarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.scenarios legend {
+  padding-inline: 0.25rem;
+  font-weight: 600;
+}
+
+.scenario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  cursor: pointer;
+}
+
+/* Panel */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.panel__header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.status {
+  margin: 0 auto 0 0;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.status[data-status='SUCCESS'] {
+  color: var(--ok);
+  border-color: currentColor;
+}
+
+.status[data-status='ERROR'] {
+  color: var(--danger);
+  border-color: currentColor;
+}
+
+/* Feed cards */
+.feed {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+}
+
+.card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.card p {
+  margin: 0;
+}
+
+.card__meta {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+/* Skeleton: same box model as .card so nothing jumps when data arrives */
+/* `.card .skeleton-line` outranks `.card p { margin: 0 }`, so the gaps survive. */
+.card .skeleton-line {
+  height: 0.875rem;
+  margin: 0 0 0.625rem;
+  border-radius: 0.25rem;
+  background: var(--skeleton);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+.card .skeleton-line--title {
+  width: 55%;
+  height: 1.125rem;
+}
+
+.card .skeleton-line--short {
+  width: 80%;
+}
+
+.card .skeleton-line--meta {
+  width: 35%;
+  height: 0.75rem;
+  margin: 0.875rem 0 0;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card .skeleton-line {
+    animation: none;
+  }
+}
+
+/* Error */
+.error {
+  padding: 1rem;
+  border: 1px solid var(--danger);
+  border-radius: 0.625rem;
+  background: var(--danger-bg);
+}
+
+.error h3 {
+  margin: 0 0 0.25rem;
+  color: var(--danger);
+  font-size: 1rem;
+}
+
+.error p {
+  margin: 0 0 0.75rem;
+}
+
+/* Buttons */
+.btn {
+  font: inherit;
+  padding: 0.4rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: var(--accent-text);
+  cursor: pointer;
+}
+
+.btn--ghost {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: inherit;
+}
+
+.btn:focus-visible,
+.scenario input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.875rem;
+}
