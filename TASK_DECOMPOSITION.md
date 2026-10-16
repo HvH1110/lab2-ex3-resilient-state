@@ -26,7 +26,7 @@ human-readable error with a **Retry Connection** button.
 - [x] Task 3.1: Import reactive engine (VNode, useState, delegation, renderApp) from Exercise 2
 - [x] Task 3.2: Guard setters against a reset store
 - [x] Task 3.3: Implement `useRef`
-- [ ] Task 3.4: Define `ViewState` / `ViewEvent` contracts
+- [x] Task 3.4: Define `ViewState` / `ViewEvent` contracts
 - [ ] Task 3.5: Implement `transition` reducer (stale responses dropped)
 - [ ] Task 3.6: Implement abortable feed service with failure scenarios
 - [ ] Task 3.7: Implement `useAsyncResource` (abort + request ids)

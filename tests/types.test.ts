@@ -1,5 +1,7 @@
 import {
   TEXT_ELEMENT,
+  assertNever,
+  isViewStatus,
   isComponentVNode,
   isDelegatedEventType,
   isElementVNode,
@@ -66,5 +68,16 @@ describe('isDelegatedEventType', () => {
   it('accepts only the bubbling events handled by the root hub', () => {
     expect(['click', 'input', 'change', 'keydown', 'submit'].every(isDelegatedEventType)).toBe(true);
     expect(['focus', 'mouseenter', 'keypress', 'Click', ''].some(isDelegatedEventType)).toBe(false);
+  });
+});
+
+describe('view state contract', () => {
+  it('isViewStatus accepts exactly the four FSM statuses', () => {
+    expect(['IDLE', 'LOADING', 'SUCCESS', 'ERROR'].every(isViewStatus)).toBe(true);
+    expect(['idle', 'PENDING', '', null, 1].some(isViewStatus)).toBe(false);
+  });
+
+  it('assertNever throws for unhandled values', () => {
+    expect(() => assertNever('BOGUS' as never)).toThrow(/Unhandled case/);
   });
 });

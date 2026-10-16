@@ -110,3 +110,51 @@ export type DelegatedEventType = (typeof DELEGATED_EVENTS)[number];
 export function isDelegatedEventType(value: string): value is DelegatedEventType {
   return (DELEGATED_EVENTS as readonly string[]).includes(value);
 }
+
+// ---------------------------------------------------------------------------
+// Exercise 3: async view state machine & feed contracts
+// ---------------------------------------------------------------------------
+
+export const VIEW_STATUSES = ['IDLE', 'LOADING', 'SUCCESS', 'ERROR'] as const;
+
+export type ViewStatus = (typeof VIEW_STATUSES)[number];
+
+/** The only shape a data component's state may take: impossible states are unrepresentable. */
+export type ViewState<T> =
+  | { readonly status: 'IDLE' }
+  | { readonly status: 'LOADING'; readonly requestId: number }
+  | { readonly status: 'SUCCESS'; readonly data: T }
+  | { readonly status: 'ERROR'; readonly error: string };
+
+export type ViewEvent<T> =
+  | { readonly type: 'FETCH'; readonly requestId: number }
+  | { readonly type: 'RESOLVE'; readonly requestId: number; readonly data: T }
+  | { readonly type: 'REJECT'; readonly requestId: number; readonly error: string }
+  | { readonly type: 'RESET' };
+
+/** An async data source; must reject with an AbortError once `signal` aborts. */
+export type Fetcher<T> = (signal: AbortSignal) => Promise<T>;
+
+export interface FeedItem {
+  readonly id: string;
+  readonly title: string;
+  readonly summary: string;
+  readonly author: string;
+  readonly publishedAt: string;
+}
+
+/** Simulated network conditions for the demo feed service. */
+export const SCENARIOS = ['healthy', 'slow', 'offline', 'malformed'] as const;
+
+export type Scenario = (typeof SCENARIOS)[number];
+
+export type FeedErrorKind = 'OFFLINE' | 'TIMEOUT' | 'SERVER' | 'INVALID_PAYLOAD';
+
+export function isViewStatus(value: unknown): value is ViewStatus {
+  return typeof value === 'string' && (VIEW_STATUSES as readonly string[]).includes(value);
+}
+
+/** Exhaustiveness check: compilation fails if a union member is not handled. */
+export function assertNever(value: never): never {
+  throw new Error(`Unhandled case: ${JSON.stringify(value)}`);
+}
